@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Kasa: Earth System Trend Detective</title>
+  <style>
+    @page { size: 16in 9in; margin: 0; }
+    :root {
+      --ink: #f5f0e8;
+      --muted: #b7b2aa;
+      --sand: #d7a663;
+      --rust: #c76b4a;
+      --deep: #10191d;
+      --panel: #17262a;
+      --line: rgba(245, 240, 232, .18);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #0c1316;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .slide {
+      width: 16in;
+      height: 9in;
+      padding: 0.7in 0.85in;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(199, 107, 74, .22), transparent 28%),
+        radial-gradient(circle at 12% 90%, rgba(215, 166, 99, .12), transparent 30%),
+        var(--deep);
+    }
+    .slide:last-child { page-break-after: auto; }
+    .eyebrow {
+      color: var(--sand);
+      font-size: 15px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    h1, h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      margin: 0;
+      line-height: 1.02;
+    }
+    h1 { font-size: 64px; max-width: 860px; }
+    h2 { font-size: 48px; margin-top: 18px; }
+    p { color: var(--muted); font-size: 23px; line-height: 1.45; max-width: 980px; }
+    .small { font-size: 16px; }
+    .accent { color: var(--sand); }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 50px;
+      align-items: center;
+      height: 100%;
+    }
+    .hero-copy p { max-width: 720px; }
+    .orb {
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      justify-self: center;
+      background:
+        radial-gradient(circle at 32% 28%, rgba(255,255,255,.55), transparent 4%),
+        radial-gradient(circle at 40% 36%, #86a79c 0 9%, transparent 10%),
+        radial-gradient(circle at 67% 30%, #bd8054 0 13%, transparent 14%),
+        radial-gradient(circle at 47% 65%, #d2a460 0 11%, transparent 12%),
+        radial-gradient(circle at 62% 70%, #52756e 0 18%, transparent 19%),
+        radial-gradient(circle at 35% 52%, #d8c29a 0 8%, transparent 9%),
+        radial-gradient(circle at 50% 50%, #365b61, #132b32 62%, #091419 100%);
+      box-shadow: 0 0 0 18px rgba(215,166,99,.08), 0 30px 100px rgba(0,0,0,.55);
+    }
+    .footer {
+      position: absolute;
+      left: .85in;
+      right: .85in;
+      bottom: .4in;
+      display: flex;
+      justify-content: space-between;
+      color: #777f80;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 42px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 25px;
+      min-height: 190px;
+    }
+    .card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .card span {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 54px;
+      align-items: stretch;
+    }
+    .step {
+      padding: 24px;
+      background: var(--panel);
+      border-top: 4px solid var(--rust);
+      border-radius: 14px;
+    }
+    .step b {
+      display: block;
+      color: var(--sand);
+      font-size: 16px;
+      letter-spacing: .12em;
+      margin-bottom: 18px;
+    }
+    .step strong { font-size: 25px; }
+    .step p { font-size: 17px; margin-bottom: 0; }
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      margin-top: 42px;
+    }
+    ul {
+      margin: 18px 0 0;
+      padding-left: 25px;
+      color: var(--muted);
+      font-size: 21px;
+      line-height: 1.75;
+    }
+    .quote {
+      margin-top: 48px;
+      padding: 25px 30px;
+      border-left: 4px solid var(--sand);
+      background: rgba(215,166,99,.08);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 31px;
+      max-width: 1000px;
+    }
+    .links {
+      margin-top: 42px;
+      display: grid;
+      gap: 18px;
+      font-size: 24px;
+    }
+    .links div {
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+    }
+    .links b { color: var(--sand); margin-right: 18px; }
+  </style>
+</head>
+<body>
+  <section class="slide">
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">NASA Space Apps Challenge 2026</div>
+        <h1>Kasa: Earth System <span class="accent">Trend Detective</span></h1>
+        <p>Read any place on Earth like a core sample. Explore satellite history, test climate trends, and understand what the evidence can - and cannot - say.</p>
+        <p class="small">Team project from Gombe, Nigeria</p>
+      </div>
+      <div class="orb" aria-hidden="true"></div>
+    </div>
+    <div class="footer"><span>Kasa</span><span>Be an Earth System Trend Detective</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">01 / The problem</div>
+    <h2>Environmental change is difficult to read.</h2>
+    <p>Satellite imagery is powerful, but a picture alone does not tell us whether a change is meaningful, temporary, or just noise. Climate data is valuable, but often difficult to interpret without technical tools.</p>
+    <div class="grid">
+      <div class="card"><strong>Too much data</strong><span>Earth observation archives contain years of imagery and measurements that are hard to compare consistently.</span></div>
+      <div class="card"><strong>Weak conclusions</strong><span>A visible difference is not automatically a statistically meaningful trend.</span></div>
+      <div class="card"><strong>High barrier to entry</strong><span>Students and communities need a simple way to ask questions about places they know.</span></div>
+    </div>
+    <div class="quote">Kasa turns a location into a transparent, explorable environmental question.</div>
+    <div class="footer"><span>Kasa</span><span>Problem</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">02 / The experience</div>
+    <h2>From globe to evidence in one continuous journey.</h2>
+    <div class="flow">
+      <div class="step"><b>01</b><strong>Choose a place</strong><p>Spin the globe, search for a place, or click directly on Earth.</p></div>
+      <div class="step"><b>02</b><strong>Travel through time</strong><p>Scrub comparable NASA imagery across a historical sequence.</p></div>
+      <div class="step"><b>03</b><strong>Test the trend</strong><p>Inspect temperature and rainfall anomalies with statistical tests.</p></div>
+      <div class="step"><b>04</b><strong>Ask responsibly</strong><p>Read the verdict, sources, caveats, and grounded AI explanation.</p></div>
+    </div>
+    <div class="footer"><span>Kasa</span><span>Product flow</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">03 / The science</div>
+    <h2>Statistical honesty is part of the interface.</h2>
+    <div class="columns">
+      <div>
+        <p>Kasa uses NASA POWER monthly temperature and precipitation data for the selected location.</p>
+        <ul>
+          <li>Removes the seasonal cycle first</li>
+          <li>Aggregates monthly anomalies by year</li>
+          <li>Uses Mann-Kendall for monotonic trend</li>
+          <li>Uses Theil-Sen for a robust slope</li>
+        </ul>
+      </div>
+      <div>
+        <p>The result is communicated without overclaiming.</p>
+        <ul>
+          <li>Shows the fitted change and p-value</li>
+          <li>Explains the uncertainty of short windows</li>
+          <li>Never presents correlation as causation</li>
+          <li>Supports a 10-year and 40-year view</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote">A trend is a statistical description of this window - not proof of what caused it.</div>
+    <div class="footer"><span>Kasa</span><span>Method</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">04 / NASA data and technology</div>
+    <h2>Built from public science and inspectable methods.</h2>
+    <div class="grid">
+      <div class="card"><strong>NASA GIBS</strong><span>MODIS Terra surface-reflectance composites for year-by-year satellite imagery.</span></div>
+      <div class="card"><strong>NASA POWER</strong><span>Temperature and precipitation data from the MERRA-2 reanalysis grid.</span></div>
+      <div class="card"><strong>Open mapping</strong><span>OpenStreetMap and OpenFreeMap provide roads, labels, and mapped building context.</span></div>
+      <div class="card"><strong>Open source stack</strong><span>React, TypeScript, MapLibre GL JS, Vite, and in-house statistics.</span></div>
+      <div class="card"><strong>Grounded AI</strong><span>The assistant receives only the data and sources already loaded for the selected place.</span></div>
+      <div class="card"><strong>Offline demos</strong><span>Checked-in NASA POWER demo data keeps the main examples usable without an API request.</span></div>
+    </div>
+    <div class="footer"><span>Kasa</span><span>Data and tools</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">05 / Why it matters</div>
+    <h2>Make Earth observation understandable, not intimidating.</h2>
+    <div class="columns">
+      <div>
+        <p>Kasa is designed for people who want to investigate environmental change but do not have a remote-sensing workstation or a statistics background.</p>
+        <ul>
+          <li>Students can learn from places they recognize.</li>
+          <li>Communities can explore local evidence.</li>
+          <li>Researchers can inspect the sources and method.</li>
+          <li>Everyone sees the caveats alongside the result.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="accent">The intended impact</p>
+        <p>Help more people ask better questions about a changing planet - and make the limits of an answer as visible as the answer itself.</p>
+        <div class="quote">Look closer. Compare fairly. Claim only what the evidence supports.</div>
+      </div>
+    </div>
+    <div class="footer"><span>Kasa</span><span>Impact</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">06 / Explore Kasa</div>
+    <h2>Try the project.</h2>
+    <p>Open the live experience or inspect the implementation and sources.</p>
+    <div class="links">
+      <div><b>Live project</b>https://kasa-mu-seven.vercel.app/</div>
+      <div><b>Source code</b>https://github.com/Adams-404/kasa</div>
+      <div><b>NASA GIBS</b>https://earthdata.nasa.gov/gibs</div>
+      <div><b>NASA POWER</b>https://power.larc.nasa.gov/</div>
+    </div>
+    <p class="small" style="margin-top: 45px;">Kasa is an original team project. External data sources and software are listed in the project documentation and submission form.</p>
+    <div class="footer"><span>Kasa</span><span>Thank you</span></div>
+  </section>
+</body>
+</html>
