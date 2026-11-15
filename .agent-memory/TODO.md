@@ -6,8 +6,8 @@
 
 ## Priority 1 — blocking / current
 
-- [ ] Implement the static demo pack and cache hydration for Gombe, Lake Chad, and Atacama.
-- [ ] Update README with method, limitations, demo-pack behavior, and run instructions.
+- [x] Implement the static demo pack and cache hydration for Gombe, Lake Chad, and Atacama (2026-11-15).
+- [x] Update README with method, limitations, demo-pack behavior, and run instructions (2026-11-15).
 - [ ] Decide and document deployment target; verify a public URL.
 
 ## Priority 2 — important

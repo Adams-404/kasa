@@ -6,6 +6,9 @@
 
 - 2026-11-15 12:34 | agent: copilot | Reconciled clean `main` at `724b4e5`; found no prior OpenCode session and identified GitHub issue #8 as next unfinished work.
 - 2026-11-15 12:34 | agent: copilot | Bootstrapped `.agent-memory/`, populated project facts, and added `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` pointers.
+- 2026-11-15 12:43 | agent: copilot | Added `src/lib/demoPack.ts` and `src/lib/demo-pack.json`; seeded normal POWER cache keys for 10-year and 40-year windows.
+- 2026-11-15 12:43 | agent: copilot | Added `src/lib/demoPack.test.ts`; `npm test` passed 25 tests and `npm run build` completed successfully.
+- 2026-11-15 12:46 | agent: copilot | Closed GitHub issue #5 and commented on #8; deployment, video, and submission remain outside the implemented code scope.
 
 <!--
 ### Example entries

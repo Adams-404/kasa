@@ -42,6 +42,11 @@ export async function cached<T>(
   return value;
 }
 
+/** Seed deterministic offline data before any network loader is attempted. */
+export function seedCache<T>(key: string, value: T): void {
+  memory.set(PREFIX + key, value);
+}
+
 /** Used by the demo pack and tests. */
 export function clearCache(): void {
   memory.clear();

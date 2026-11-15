@@ -16,6 +16,13 @@ npm run build
 
 No API keys, no accounts, no database. Every source is a public API.
 
+The three **Start with** places have a checked-in NASA POWER demo pack
+(`src/lib/demo-pack.json`). Kasa seeds that data into the normal cache before React
+starts, so the 10-year and 40-year trend views for Gombe, Lake Chad and the Atacama
+Desert do not need a POWER request. Map imagery and optional history/news panels still
+use their public services when opened; the product labels those states instead of
+inventing offline results.
+
 ## What it does
 
 1. **Globe.** A Blue Marble Earth that spins until you touch it.
@@ -51,6 +58,10 @@ No API keys, no accounts, no database. Every source is a public API.
   nothing is ever described as caused by anything.
 
 `src/lib/stats/` holds the whole pipeline and `src/lib/stats/stats.test.ts` the tests.
+
+The demo pack is generated from the same NASA POWER monthly response shape used by
+`src/lib/api/power.ts`; it contains 1986–2025 monthly values, drops POWER's annual
+month-13 convenience value, and is sliced to the selected window at startup.
 
 ## Data sources
 
