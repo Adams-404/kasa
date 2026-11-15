@@ -1,0 +1,1 @@
+{"root":["./src/main.tsx","./src/app/App.tsx","./src/components/About.tsx","./src/components/EarthMap.tsx","./src/components/GlobeScreen.tsx","./src/components/PlaceView.tsx","./src/lib/dates.ts","./src/lib/demoPlaces.ts","./src/lib/format.ts","./src/lib/gibs.ts"],"version":"5.9.3"}

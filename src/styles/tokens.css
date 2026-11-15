@@ -1,0 +1,44 @@
+:root {
+  /* Rock and soil */
+  --basalt: #14181d;
+  --slate: #232a32;
+  --chalk: #e8e4d8;
+  --ash: #8a94a0;
+
+  /* Data */
+  --tide: #4fa3a5;
+  --ochre: #d6a23a;
+  --lichen: #9db36b;
+  --madder: #c2483d;
+
+  --tide-deep: #2c6b6d;
+  --ochre-deep: #8a5f16;
+  --neutral: #6e7378;
+
+  /* Type */
+  --font-ui: "Familjen Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-read: "Spectral", Georgia, "Times New Roman", serif;
+
+  --t-13: 13px;
+  --t-15: 15px;
+  --t-18: 18px;
+  --t-24: 24px;
+  --t-36: 36px;
+  --t-56: 56px;
+
+  /* Space, 4px base */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-10: 40px;
+  --sp-16: 64px;
+
+  /* Structure */
+  --rule-hair: 1px solid rgba(138, 148, 160, 0.25);
+  --rule-strong: 1px solid rgba(138, 148, 160, 0.4);
+  --panel: rgba(20, 24, 29, 0.82);
+  --focus: var(--madder);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
