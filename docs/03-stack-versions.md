@@ -40,6 +40,9 @@ moment stays choreographed rather than incidental.
 - Raster sources support `maxzoom`, which we set to **9** for GIBS true color
   (`GoogleMapsCompatible_Level9`) so tiles overzoom instead of 404ing.
 - Keep `attributionControl` on: "NASA GIBS" is a licence requirement, not decoration.
+- The place map also uses OpenFreeMap's OpenStreetMap-derived vector source for roads,
+  place labels, street names, and building footprints; its glyph URL is declared in the
+  MapLibre style.
 
 ## Things we are NOT adding
 

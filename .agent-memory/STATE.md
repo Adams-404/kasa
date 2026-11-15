@@ -22,12 +22,13 @@ IN_PROGRESS
 - Adding an OpenStreetMap-derived OpenFreeMap vector detail overlay at place-level zoom so roads and mapped buildings appear over the satellite composite.
 - Documented the OSM/OpenFreeMap detail layer and its coverage limitation in `README.md`.
 - Committed and pushed the vector overlay as `8ead10c`; the application worktree is clean.
+- Added place and street-name labels using OpenFreeMap glyphs and documented the source, zoom thresholds, attribution, and raster-tile dead end in `docs/02-data-sources.md`.
 
 ## NEXT STEP (do this first)
-Open the deployed app at a place-level zoom and verify roads/buildings are visible over the satellite composite.
+Run tests and a production build for the new label layers, then commit and push the documentation and code.
 
 ## Uncommitted / Half-Finished Work
-No uncommitted application work. Generated `tsconfig.tsbuildinfo` was restored before commit.
+Label-layer code and documentation are uncommitted; generated `tsconfig.tsbuildinfo` must be restored before commit.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -37,4 +38,4 @@ No uncommitted application work. Generated `tsconfig.tsbuildinfo` was restored b
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 13:10 by copilot
+2026-11-15 13:13 by copilot

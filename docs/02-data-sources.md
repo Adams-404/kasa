@@ -205,6 +205,25 @@ https://www.wikidata.org/w/api.php?action=wbgetentities
 User-Agent, enforces 1 req/s in a module-level queue, and caches to disk/memory for the
 demo. Client never calls nominatim.openstreetmap.org directly.
 
+## 5.1 OpenStreetMap detail overlay
+
+**Verified against https://openfreemap.org/ and the live style at
+`https://tiles.openfreemap.org/styles/liberty` on 2026-11-15.**
+
+Kasa keeps NASA MODIS as the historical satellite layer and adds an
+OpenStreetMap-derived vector overlay from OpenFreeMap for orientation:
+
+- Vector source: `https://tiles.openfreemap.org/planet`
+- Glyphs: `https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf`
+- Roads render from zoom 7; place names render from zoom 7; street names render from zoom 10.
+- Building footprints render from zoom 13; the map permits zoom 16 for local detail.
+- The overlay is transparent line/fill/symbol styling, so it does not replace the satellite imagery.
+- Attribution shown in the map: `© OpenStreetMap contributors · OpenFreeMap`.
+- This is map data, not higher-resolution satellite imagery; building and street coverage
+  depends on what local contributors have mapped.
+- Direct browser requests to `tile.openstreetmap.org` were not used because the public
+  raster endpoint returned an access-policy block during verification.
+
 ---
 
 ## 6. GDELT DOC 2.0 API
