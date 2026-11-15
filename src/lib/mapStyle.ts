@@ -3,6 +3,7 @@ import {
   BASEMAP,
   COASTLINES,
   IMAGERY,
+  OSM_DETAIL,
   datedTiles,
   imageryLayerFor,
   staticTiles,
@@ -40,6 +41,10 @@ export function buildMapStyle(date: string): StyleSpecification {
         tileSize: 256,
         maxzoom: COASTLINES.maxZoom,
       },
+      openmaptiles: {
+        type: "vector",
+        url: "https://tiles.openfreemap.org/planet",
+      },
     },
     sky: {
       "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 5, 1, 7, 0],
@@ -59,6 +64,42 @@ export function buildMapStyle(date: string): StyleSpecification {
         source: "coastlines",
         minzoom: 3.5,
         paint: { "raster-opacity": 0.32 },
+      },
+      {
+        id: "osm-road-casing",
+        type: "line",
+        source: "openmaptiles",
+        "source-layer": "transportation",
+        minzoom: 7,
+        paint: {
+          "line-color": "#f8f1dc",
+          "line-opacity": 0.82,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 7, 0.8, 12, 3.2, 16, 7],
+        },
+      },
+      {
+        id: "osm-road",
+        type: "line",
+        source: "openmaptiles",
+        "source-layer": "transportation",
+        minzoom: 7,
+        paint: {
+          "line-color": "#7d5f3d",
+          "line-opacity": 0.78,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 7, 0.35, 12, 1.4, 16, 3.2],
+        },
+      },
+      {
+        id: "osm-buildings",
+        type: "fill",
+        source: "openmaptiles",
+        "source-layer": "building",
+        minzoom: 13,
+        maxzoom: OSM_DETAIL.maxZoom,
+        paint: {
+          "fill-color": "#eadcc6",
+          "fill-opacity": 0.7,
+        },
       },
     ],
   };

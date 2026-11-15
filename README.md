@@ -70,6 +70,7 @@ month-13 convenience value, and is sliced to the selected window at startup.
 | [NASA GIBS](https://earthdata.nasa.gov/gibs) | Globe basemap, year-by-year imagery | `MODIS_Terra_L3_SurfaceReflectance_Bands143_8Day`, 8-day composite, `GoogleMapsCompatible_Level8` |
 | [NASA POWER](https://power.larc.nasa.gov/) | Monthly temperature (`T2M`, °C) and rainfall (`PRECTOTCORR`, mm/day) | MERRA-2 reanalysis: a ~0.5° grid cell, not a weather station |
 | [OpenStreetMap Nominatim](https://nominatim.openstreetmap.org/) | Place search on submit, reverse geocoding a click | No autocomplete, 1 request/second, results cached 30 days |
+| [OpenFreeMap](https://openfreemap.org/) / [OpenStreetMap](https://www.openstreetmap.org/) | High-zoom roads, labels and mapped building footprints over the satellite view | Vector detail appears from zoom 7; coverage depends on local OSM mapping |
 | [Wikipedia](https://www.wikipedia.org/) | History and culture *(phase 5)* | CC BY-SA, attributed on every card |
 | [Wikidata](https://www.wikidata.org/) | Structured facts *(phase 5)* | Resolved by English Wikipedia title, never by name |
 
@@ -120,6 +121,8 @@ and is instructed to say "I don't have that for this place" rather than guess.
 - Imagery comes from an 8-day composite at 500 m, not a photograph of one afternoon. The
   MODIS surface-reflectance product masks water, so open ocean shows no imagery (the
   statistics still work: MERRA-2 covers the ocean).
+- Roads and building footprints are map data from OpenStreetMap, not extra satellite
+  resolution; unmapped areas may have little or no detail.
 - The trend is a statistical description of this window. It is not attribution.
 
 ## Credits

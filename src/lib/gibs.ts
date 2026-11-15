@@ -33,6 +33,11 @@ export const COASTLINES = {
   maxZoom: 13,
 } as const;
 
+export const OSM_DETAIL = {
+  maxZoom: 16,
+  label: "© OpenStreetMap contributors · OpenFreeMap",
+} as const;
+
 /**
  * Imagery layers, best first.
  *

@@ -40,7 +40,8 @@ TypeScript, React 19, Vite 8, MapLibre GL JS 6, Vitest 3. No database.
 ## Known Quirks
 - NASA POWER monthly response includes month 13 annual values; the client ignores them and computes annual anomalies itself.
 - Nominatim searches are submit-only, throttled, cached, and proxied in development.
-- The planned offline demo pack is not implemented yet; `src/lib/demoPlaces.ts` currently only defines place chips.
+- The offline demo pack seeds NASA POWER trend data for the three demo places; `src/lib/demoPlaces.ts` defines their start chips.
+- The place map overlays OpenStreetMap raster detail from zoom 7 upward; NASA MODIS remains the historical satellite layer underneath.
 
 ## External Services
 NASA GIBS, NASA POWER, OpenStreetMap Nominatim, Wikipedia, Wikidata, optional OpenAI-compatible LLM endpoint, and GDELT planned for issue #6.

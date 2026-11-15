@@ -62,7 +62,7 @@ export default function CompareMap({
         center: [0, 0],
         zoom: 1,
         minZoom: 0.4,
-        maxZoom: 12,
+        maxZoom: 16,
         renderWorldCopies: false,
         interactive: false,
         attributionControl: false,

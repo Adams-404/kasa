@@ -13,6 +13,15 @@
 - Do NOT retry because:
 - Logged by: <agent-name>
 
+## DE-002
+- Date: 2026-11-15
+- Tried: Add `https://tile.openstreetmap.org/{z}/{x}/{y}.png` as a browser raster overlay.
+- Where: `src/lib/gibs.ts`, `src/lib/mapStyle.ts`
+- Result: The tile endpoint responded with `x-blocked: Access denied` during verification.
+- Why it failed: The public OSM tile service requires usage-policy-compliant identification that a browser tile request cannot reliably provide.
+- Do NOT retry because: Direct browser requests risk violating OSM tile policy; use a provider intended for browser map tiles or a self-hosted/proxied service instead.
+- Logged by: copilot
+
 <!--
 ### Example
 

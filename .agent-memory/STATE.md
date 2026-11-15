@@ -19,12 +19,14 @@ IN_PROGRESS
 - Committed the implementation as `aee3bd1`; the worktree is clean.
 - Confirmed the map already uses NASA MODIS satellite imagery; user chose to keep the reliable 8-day composite rather than switch to sharper but incomplete true-colour dates.
 - Committed and pushed the satellite label clarification as `3238086`; worktree is clean.
+- Adding an OpenStreetMap-derived OpenFreeMap vector detail overlay at place-level zoom so roads and mapped buildings appear over the satellite composite.
+- Documented the OSM/OpenFreeMap detail layer and its coverage limitation in `README.md`.
 
 ## NEXT STEP (do this first)
-Open `README.md` and choose a deployment target/public URL for issue #8.
+Restore generated build metadata, commit the vector overlay and documentation, then push it.
 
 ## Uncommitted / Half-Finished Work
-No uncommitted application work.
+Vector overlay changes and documentation are uncommitted; `tsconfig.tsbuildinfo` is generated noise and must be restored before commit.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -34,4 +36,4 @@ No uncommitted application work.
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 12:55 by copilot
+2026-11-15 13:08 by copilot

@@ -67,7 +67,7 @@ export default function EarthMap({ place, date, onPick, onReady }: EarthMapProps
         center: HOME_CENTER,
         zoom: HOME_ZOOM,
         minZoom: 0.4,
-        maxZoom: 12,
+        maxZoom: 16,
         renderWorldCopies: false,
         attributionControl: false,
         dragRotate: false,
@@ -85,7 +85,7 @@ export default function EarthMap({ place, date, onPick, onReady }: EarthMapProps
       new AttributionControl({
         compact: true,
         customAttribution:
-          '<a href="https://earthdata.nasa.gov/gibs" target="_blank" rel="noreferrer">NASA GIBS</a> · Worldview',
+          '<a href="https://earthdata.nasa.gov/gibs" target="_blank" rel="noreferrer">NASA GIBS</a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · <a href="https://openfreemap.org/" target="_blank" rel="noreferrer">OpenFreeMap</a>',
       }),
       "bottom-right",
     );
