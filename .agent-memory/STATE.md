@@ -25,14 +25,16 @@ IN_PROGRESS
 - Added place and street-name labels using OpenFreeMap glyphs and documented the source, zoom thresholds, attribution, and raster-tile dead end in `docs/02-data-sources.md`.
 - Committed and pushed the label/documentation work as `fd03c1e`; the worktree is clean.
 - Initial Vercel deployment succeeded at `https://kasa-mu-seven.vercel.app`, but `/api/chat` returned `FUNCTION_INVOCATION_FAILED`; logs identified missing ESM `.js` extensions in server imports.
+- Fixed the Vercel ESM imports in commit `dd981ac`, configured Production variables `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL` without storing their values in the repository, and redeployed successfully.
+- Production site responds at `https://kasa-mu-seven.vercel.app`; `GET /api/chat` returns `{"configured":true,...}`.
 - Lowered street-name labels to zoom 9 so they appear during the normal place view instead of requiring a deeper manual zoom.
 - Typecheck passed; committed and pushed the adjustment as `6526925`; the worktree is clean.
 
 ## NEXT STEP (do this first)
-Run the build and deploy again after fixing Vercel's server ESM imports; verify `/api/chat`.
+Open `https://kasa-mu-seven.vercel.app` in a browser and run the final demo flow.
 
 ## Uncommitted / Half-Finished Work
-Vercel import-extension fix is uncommitted in `api/chat.ts`, `server/chat.ts`, and `vite.config.ts`.
+No uncommitted application work. `tsconfig.tsbuildinfo` was restored after the Vercel build.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -42,4 +44,4 @@ Vercel import-extension fix is uncommitted in `api/chat.ts`, `server/chat.ts`, a
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 14:09 by copilot
+2026-11-15 14:15 by copilot
