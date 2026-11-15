@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import EarthMap from "../components/EarthMap";
 import GlobeScreen from "../components/GlobeScreen";
 import PlaceView from "../components/PlaceView";
@@ -7,6 +7,7 @@ import AnalysisBar from "../components/AnalysisBar";
 import About from "../components/About";
 import { formatLatLon, type Place } from "../lib/format";
 import { lastCompleteYear, sampleDate, yearWindow } from "../lib/time";
+import { reversePlace } from "../lib/api/nominatim";
 
 const WINDOW_YEARS = 10;
 
@@ -20,14 +21,36 @@ export default function App() {
 
   const date = sampleDate(year);
 
+  const pickSeq = useRef(0);
+
   const pick = useCallback((next: Place) => {
+    const seq = ++pickSeq.current;
     setPlace({
       ...next,
       name: next.name || formatLatLon(next.lat, next.lon),
     });
+
+    // A bare click gets a real name when OpenStreetMap knows one, and keeps the
+    // coordinates when it does not. Late answers for an abandoned click are ignored.
+    if (next.name) return;
+    reversePlace(next.lat, next.lon)
+      .then((found) => {
+        if (!found || seq !== pickSeq.current) return;
+        setPlace((current) =>
+          current && current.lat === next.lat && current.lon === next.lon
+            ? { ...current, name: found.name, detail: found.detail }
+            : current,
+        );
+      })
+      .catch(() => {
+        // Coordinates are an honest label when the lookup fails.
+      });
   }, []);
 
-  const goHome = useCallback(() => setPlace(null), []);
+  const goHome = useCallback(() => {
+    pickSeq.current += 1;
+    setPlace(null);
+  }, []);
 
   // A chart click can only move the core to a year the core actually shows.
   const selectYear = useCallback(
@@ -56,7 +79,7 @@ export default function App() {
   }, [place]);
 
   return (
-    <main className="app">
+    <main className={`app${place ? " app--place" : ""}`}>
       <EarthMap place={place} date={date} onPick={pick} />
       {place ? (
         <>

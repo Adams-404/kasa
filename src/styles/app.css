@@ -202,12 +202,20 @@
 
 /* ---------- globe screen ---------- */
 
-.globe-foot {
-  padding: 0 28px var(--sp-10);
+.globe-intro {
+  position: absolute;
+  top: 104px;
+  left: 28px;
+  z-index: 2;
+  width: min(440px, calc(100% - 56px));
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
   pointer-events: none;
+}
+
+.globe-intro > * {
+  pointer-events: auto;
 }
 
 .globe-foot__hint {
@@ -249,6 +257,108 @@
 
 .demo-link:hover {
   border-color: var(--ochre);
+}
+
+/* ---------- search ---------- */
+
+.search {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  width: min(520px, 100%);
+}
+
+.search__label {
+  font-size: var(--t-13);
+  color: var(--ash);
+}
+
+.search__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  border-bottom: 1px solid rgba(138, 148, 160, 0.45);
+}
+
+.search__row:focus-within {
+  border-bottom-color: var(--chalk);
+}
+
+.search__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--chalk);
+  font-size: var(--t-18);
+}
+
+.search__input::placeholder {
+  color: rgba(138, 148, 160, 0.65);
+}
+
+.search__input:focus {
+  outline: none;
+}
+
+.search__submit {
+  flex: none;
+  min-height: 44px;
+  padding: 0 var(--sp-2);
+  font-size: var(--t-13);
+  color: var(--chalk);
+}
+
+.search__submit:disabled {
+  color: var(--ash);
+  cursor: progress;
+}
+
+.search__note,
+.search__empty {
+  font-size: var(--t-13);
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.search-results {
+  pointer-events: auto;
+  list-style: none;
+  margin: var(--sp-2) 0 0;
+  padding: 0;
+  max-height: 34vh;
+  overflow-y: auto;
+  background: rgba(20, 24, 29, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.search-result {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  min-height: 44px;
+  padding: 7px var(--sp-3);
+  text-align: left;
+  border-bottom: 1px solid rgba(138, 148, 160, 0.18);
+}
+
+.search-result:hover,
+.search-result:focus-visible {
+  background: rgba(214, 162, 58, 0.12);
+}
+
+.search-result__name {
+  font-size: var(--t-15);
+  color: var(--chalk);
+}
+
+.search-result__detail {
+  font-size: var(--t-13);
+  color: var(--ash);
 }
 
 /* ---------- the core ---------- */
@@ -795,8 +905,8 @@
 }
 
 /* In place view the core owns the right edge and the analysis band the bottom;
-   keep attribution clear of both. */
-.app .maplibregl-ctrl-bottom-right {
+   keep attribution clear of both. On the globe screen it stays in the corner. */
+.app--place .maplibregl-ctrl-bottom-right {
   right: 104px;
   bottom: var(--analysis-h);
 }
@@ -825,8 +935,12 @@
     font-size: var(--t-18);
   }
 
-  .globe-foot {
-    padding: 0 var(--sp-4) var(--sp-6);
+  .globe-intro {
+    top: auto;
+    bottom: var(--sp-4);
+    left: var(--sp-4);
+    right: var(--sp-4);
+    width: auto;
     gap: var(--sp-3);
   }
 
@@ -964,7 +1078,7 @@
     box-shadow: inset 0 2px 0 var(--ochre);
   }
 
-  .app .maplibregl-ctrl-bottom-right {
+  .app--place .maplibregl-ctrl-bottom-right {
     right: var(--sp-2);
     bottom: calc(50vh + 104px);
     top: auto;
