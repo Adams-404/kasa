@@ -1,10 +1,10 @@
-import { currentEnv, llmConfig } from "./env";
-import { chatCompletion, LlmError } from "./llm";
+import { currentEnv, llmConfig } from "./env.js";
+import { chatCompletion, LlmError } from "./llm.js";
 import {
   MAX_ANSWER_TOKENS,
   buildMessages,
   validateChatRequest,
-} from "./prompt";
+} from "./prompt.js";
 
 /**
  * `POST /api/chat` — the only place the model key exists.

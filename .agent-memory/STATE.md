@@ -24,14 +24,15 @@ IN_PROGRESS
 - Committed and pushed the vector overlay as `8ead10c`; the application worktree is clean.
 - Added place and street-name labels using OpenFreeMap glyphs and documented the source, zoom thresholds, attribution, and raster-tile dead end in `docs/02-data-sources.md`.
 - Committed and pushed the label/documentation work as `fd03c1e`; the worktree is clean.
+- Initial Vercel deployment succeeded at `https://kasa-mu-seven.vercel.app`, but `/api/chat` returned `FUNCTION_INVOCATION_FAILED`; logs identified missing ESM `.js` extensions in server imports.
 - Lowered street-name labels to zoom 9 so they appear during the normal place view instead of requiring a deeper manual zoom.
 - Typecheck passed; committed and pushed the adjustment as `6526925`; the worktree is clean.
 
 ## NEXT STEP (do this first)
-Open the deployed app at a place-level zoom and verify place/street labels are visible.
+Run the build and deploy again after fixing Vercel's server ESM imports; verify `/api/chat`.
 
 ## Uncommitted / Half-Finished Work
-No uncommitted application work.
+Vercel import-extension fix is uncommitted in `api/chat.ts`, `server/chat.ts`, and `vite.config.ts`.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -41,4 +42,4 @@ No uncommitted application work.
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 13:17 by copilot
+2026-11-15 14:09 by copilot

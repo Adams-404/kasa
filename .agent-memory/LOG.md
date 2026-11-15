@@ -20,6 +20,7 @@
 - 2026-11-15 13:14 | agent: copilot | Ran `npm test` (25 passed) and `npm run build`; committed and pushed `fd03c1e`.
 - 2026-11-15 13:16 | agent: copilot | Lowered street-name label visibility from zoom 10 to zoom 9 so labels appear in the normal place view.
 - 2026-11-15 13:17 | agent: copilot | Ran `npx tsc -b`; committed and pushed `6526925`.
+- 2026-11-15 14:09 | agent: copilot | Deployed Vercel production; site returned 200, but `/api/chat` failed because Node ESM could not resolve extensionless server imports.
 
 <!--
 ### Example entries

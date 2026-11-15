@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
-import { handleChat } from "./server/chat";
+import { handleChat } from "./server/chat.js";
 
 const NOMINATIM = "https://nominatim.openstreetmap.org";
 
