@@ -5,20 +5,14 @@ import {
   Marker,
   setWorkerUrl,
   type RasterTileSource,
-  type StyleSpecification,
 } from "maplibre-gl";
 // Vite cannot resolve MapLibre's internal `new URL(..., import.meta.url)` worker
 // once the package is pre-bundled, so hand it a bundled worker URL instead.
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "maplibre-gl/dist/maplibre-gl.css";
-import {
-  BASEMAP,
-  COASTLINES,
-  IMAGERY,
-  datedTiles,
-  imageryLayerFor,
-  staticTiles,
-} from "../lib/gibs";
+import { IMAGERY, datedTiles, imageryLayerFor } from "../lib/gibs";
+import { buildMapStyle } from "../lib/mapStyle";
+import { buildMarkerElement } from "../lib/marker";
 import type { Place } from "../lib/format";
 
 type EarthMapProps = {
@@ -26,6 +20,8 @@ type EarthMapProps = {
   /** ISO date driving the satellite imagery. */
   date: string;
   onPick: (place: Place) => void;
+  /** Hands the map instance to App so the comparison map can follow it. */
+  onReady?: (map: MapLibreMap | null) => void;
 };
 
 const HOME_CENTER: [number, number] = [11.17, 8];
@@ -43,7 +39,7 @@ function prefersReducedMotion(): boolean {
  * different zooms, which is what lets the dive be a single camera move: the
  * projection interpolates from globe to flat as the zoom passes through.
  */
-export default function EarthMap({ place, date, onPick }: EarthMapProps) {
+export default function EarthMap({ place, date, onPick, onReady }: EarthMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const markerRef = useRef<Marker | null>(null);
@@ -51,6 +47,8 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
   const lastPlaceRef = useRef<Place | null>(null);
   const onPickRef = useRef(onPick);
   onPickRef.current = onPick;
+  const onReadyRef = useRef(onReady);
+  onReadyRef.current = onReady;
 
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -59,65 +57,7 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const imagery = imageryLayerFor(date) ?? IMAGERY.modisTerra;
-
-    const style: StyleSpecification = {
-      version: 8,
-      name: "Kasa strata",
-      projection: {
-        type: ["interpolate", ["linear"], ["zoom"], 2.4, "globe", 5.6, "mercator"],
-      },
-      sources: {
-        basemap: {
-          type: "raster",
-          tiles: staticTiles(BASEMAP),
-          tileSize: 256,
-          maxzoom: BASEMAP.maxZoom,
-        },
-        imagery: {
-          type: "raster",
-          tiles: datedTiles(imagery, date),
-          tileSize: 256,
-          maxzoom: imagery.maxZoom,
-        },
-        coastlines: {
-          type: "raster",
-          tiles: staticTiles(COASTLINES),
-          tileSize: 256,
-          maxzoom: COASTLINES.maxZoom,
-        },
-      },
-      sky: {
-        "atmosphere-blend": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          5,
-          1,
-          7,
-          0,
-        ],
-      },
-      layers: [
-        { id: "basemap", type: "raster", source: "basemap" },
-        {
-          id: "imagery",
-          type: "raster",
-          source: "imagery",
-          minzoom: 3.2,
-          paint: { "raster-fade-duration": 180 },
-        },
-        {
-          id: "coastlines",
-          type: "raster",
-          source: "coastlines",
-          minzoom: 3.5,
-          paint: { "raster-opacity": 0.32 },
-        },
-      ],
-    };
+    const style = buildMapStyle(date);
 
     let map: MapLibreMap;
     try {
@@ -139,6 +79,7 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
     }
 
     mapRef.current = map;
+    onReadyRef.current?.(map);
 
     map.addControl(
       new AttributionControl({
@@ -190,6 +131,7 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
       cancelAnimationFrame(raf);
       marker.remove();
       markerRef.current = null;
+      onReadyRef.current?.(null);
       map.remove();
       mapRef.current = null;
       setLoaded(false);
@@ -277,16 +219,4 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
       )}
     </div>
   );
-}
-
-function buildMarkerElement(): HTMLElement {
-  const element = document.createElement("div");
-  element.className = "place-marker";
-  element.setAttribute("aria-hidden", "true");
-  const ring = document.createElement("span");
-  ring.className = "place-marker__ring";
-  const dot = document.createElement("span");
-  dot.className = "place-marker__dot";
-  element.append(ring, dot);
-  return element;
 }

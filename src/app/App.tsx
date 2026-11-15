@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { Map as MapLibreMap } from "maplibre-gl";
 import EarthMap from "../components/EarthMap";
+import CompareMap from "../components/CompareMap";
 import GlobeScreen from "../components/GlobeScreen";
 import PlaceView from "../components/PlaceView";
 import Core from "../components/Core";
@@ -20,6 +22,9 @@ export default function App() {
   const [year, setYear] = useState(endYear);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [mainMap, setMainMap] = useState<MapLibreMap | null>(null);
+  const [comparing, setComparing] = useState(false);
+  const [compareYear, setCompareYear] = useState(years[0]);
 
   const date = sampleDate(year);
 
@@ -52,6 +57,7 @@ export default function App() {
   const goHome = useCallback(() => {
     pickSeq.current += 1;
     setHistoryOpen(false);
+    setComparing(false);
     setPlace(null);
   }, []);
 
@@ -75,15 +81,27 @@ export default function App() {
   useEffect(() => {
     if (!place) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPlace(null);
+      if (event.key !== "Escape") return;
+      // Leave compare before leaving the place, so one Escape is one step.
+      if (comparing) setComparing(false);
+      else setPlace(null);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [place]);
+  }, [place, comparing]);
 
   return (
     <main className={`app${place ? " app--place" : ""}`}>
-      <EarthMap place={place} date={date} onPick={pick} />
+      <EarthMap place={place} date={date} onPick={pick} onReady={setMainMap} />
+      {place && comparing && (
+        <CompareMap
+          date={sampleDate(compareYear)}
+          year={compareYear}
+          mainYear={year}
+          mainMap={mainMap}
+          place={place}
+        />
+      )}
       {place ? (
         <>
           <PlaceView
@@ -91,6 +109,11 @@ export default function App() {
             date={date}
             onBack={goHome}
             onHistory={() => setHistoryOpen(true)}
+            comparing={comparing}
+            onCompare={() => setComparing((value) => !value)}
+            compareYear={compareYear}
+            onCompareYear={setCompareYear}
+            years={years}
           />
           <AnalysisBar
             place={place}

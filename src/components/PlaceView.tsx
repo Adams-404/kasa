@@ -9,9 +9,24 @@ type PlaceViewProps = {
   date: string;
   onBack: () => void;
   onHistory: () => void;
+  comparing: boolean;
+  onCompare: () => void;
+  compareYear: number;
+  onCompareYear: (year: number) => void;
+  years: Array<number>;
 };
 
-export default function PlaceView({ place, date, onBack, onHistory }: PlaceViewProps) {
+export default function PlaceView({
+  place,
+  date,
+  onBack,
+  onHistory,
+  comparing,
+  onCompare,
+  compareYear,
+  onCompareYear,
+  years,
+}: PlaceViewProps) {
   const layer = imageryLayerFor(date) ?? IMAGERY.terraComposite;
   const coords = formatLatLon(place.lat, place.lon);
   // While search is unbuilt, the name is the coordinates. Do not print them twice.
@@ -32,6 +47,14 @@ export default function PlaceView({ place, date, onBack, onHistory }: PlaceViewP
           )}
         </div>
         <div className="place-actions">
+          <button
+            type="button"
+            className="text-link"
+            aria-pressed={comparing}
+            onClick={onCompare}
+          >
+            Compare
+          </button>
           <button type="button" className="text-link" onClick={onHistory}>
             History
           </button>
@@ -42,6 +65,23 @@ export default function PlaceView({ place, date, onBack, onHistory }: PlaceViewP
         <p className="date-card__label">Imagery period</p>
         <p className="date-card__value num">{formatDateRange(date, compositeEnd(date))}</p>
         <p className="date-card__source">{layer.label}</p>
+
+        {comparing && (
+          <label className="compare-pick">
+            <span>Compare with</span>
+            <select
+              className="compare-pick__select num"
+              value={compareYear}
+              onChange={(event) => onCompareYear(Number(event.target.value))}
+            >
+              {years.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
       </div>
     </>
   );
