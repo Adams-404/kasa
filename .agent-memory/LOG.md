@@ -18,6 +18,7 @@
 - 2026-11-15 13:10 | agent: copilot | Committed and pushed the OpenStreetMap-derived vector overlay as `8ead10c`; worktree is clean.
 - 2026-11-15 13:13 | agent: copilot | Added OpenFreeMap place labels, street-name labels, glyphs, and detailed source documentation in `docs/02-data-sources.md` and `docs/03-stack-versions.md`.
 - 2026-11-15 13:14 | agent: copilot | Ran `npm test` (25 passed) and `npm run build`; committed and pushed `fd03c1e`.
+- 2026-11-15 13:16 | agent: copilot | Lowered street-name label visibility from zoom 10 to zoom 9 so labels appear in the normal place view.
 
 <!--
 ### Example entries

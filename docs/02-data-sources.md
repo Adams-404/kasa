@@ -215,7 +215,7 @@ OpenStreetMap-derived vector overlay from OpenFreeMap for orientation:
 
 - Vector source: `https://tiles.openfreemap.org/planet`
 - Glyphs: `https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf`
-- Roads render from zoom 7; place names render from zoom 7; street names render from zoom 10.
+- Roads render from zoom 7; place names render from zoom 7; street names render from zoom 9.
 - Building footprints render from zoom 13; the map permits zoom 16 for local detail.
 - The overlay is transparent line/fill/symbol styling, so it does not replace the satellite imagery.
 - Attribution shown in the map: `© OpenStreetMap contributors · OpenFreeMap`.

@@ -24,12 +24,13 @@ IN_PROGRESS
 - Committed and pushed the vector overlay as `8ead10c`; the application worktree is clean.
 - Added place and street-name labels using OpenFreeMap glyphs and documented the source, zoom thresholds, attribution, and raster-tile dead end in `docs/02-data-sources.md`.
 - Committed and pushed the label/documentation work as `fd03c1e`; the worktree is clean.
+- Lowered street-name labels to zoom 9 so they appear during the normal place view instead of requiring a deeper manual zoom.
 
 ## NEXT STEP (do this first)
-Open the deployed app at a place-level zoom and verify place/street labels are visible.
+Run the focused typecheck, commit the zoom-threshold adjustment, and push it.
 
 ## Uncommitted / Half-Finished Work
-No uncommitted application work.
+The street-label threshold adjustment is uncommitted in `src/lib/mapStyle.ts` and `docs/02-data-sources.md`.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -39,4 +40,4 @@ No uncommitted application work.
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 13:14 by copilot
+2026-11-15 13:16 by copilot

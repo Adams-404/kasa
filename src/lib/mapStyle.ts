@@ -126,7 +126,7 @@ export function buildMapStyle(date: string): StyleSpecification {
         type: "symbol",
         source: "openmaptiles",
         "source-layer": "transportation_name",
-        minzoom: 10,
+        minzoom: 9,
         layout: {
           "symbol-placement": "line",
           "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
