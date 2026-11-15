@@ -18,12 +18,13 @@ IN_PROGRESS
 - Closed completed GitHub issue #5 and commented on issue #8 with the demo-pack progress.
 - Committed the implementation as `aee3bd1`; the worktree is clean.
 - Confirmed the map already uses NASA MODIS satellite imagery; user chose to keep the reliable 8-day composite rather than switch to sharper but incomplete true-colour dates.
+- Committed and pushed the satellite label clarification as `3238086`; worktree is clean.
 
 ## NEXT STEP (do this first)
-Run the focused checks for the satellite-label clarification, then commit and push it.
+Open `README.md` and choose a deployment target/public URL for issue #8.
 
 ## Uncommitted / Half-Finished Work
-`src/components/PlaceView.tsx` has one uncommitted label clarification.
+No uncommitted application work.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -33,4 +34,4 @@ Run the focused checks for the satellite-label clarification, then commit and pu
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 12:54 by copilot
+2026-11-15 12:55 by copilot
