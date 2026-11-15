@@ -22,6 +22,8 @@
 - 2026-11-15 13:17 | agent: copilot | Ran `npx tsc -b`; committed and pushed `6526925`.
 - 2026-11-15 14:09 | agent: copilot | Deployed Vercel production; site returned 200, but `/api/chat` failed because Node ESM could not resolve extensionless server imports.
 - 2026-11-15 14:15 | agent: copilot | Added Production env var names `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL` in Vercel, redeployed, and verified `/api/chat` reports configured.
+- 2026-11-15 14:24 | agent: copilot | Redesigned `GlobeScreen` with a glass field-station panel, stronger hero hierarchy, source cues, demo chips, and a vignette overlay.
+- 2026-11-15 14:27 | agent: copilot | `npm test` passed 25 tests and `npm run build` passed for the visual redesign.
 
 <!--
 ### Example entries
