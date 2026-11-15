@@ -1,16 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import EarthMap from "../components/EarthMap";
 import GlobeScreen from "../components/GlobeScreen";
 import PlaceView from "../components/PlaceView";
+import Core from "../components/Core";
 import About from "../components/About";
-import { IMAGERY_LAG_DAYS } from "../lib/gibs";
-import { daysAgo } from "../lib/dates";
 import { formatLatLon, type Place } from "../lib/format";
+import { lastCompleteYear, sampleDate, yearWindow } from "../lib/time";
+
+const WINDOW_YEARS = 10;
 
 export default function App() {
+  const endYear = useMemo(() => lastCompleteYear(), []);
+  const years = useMemo(() => yearWindow(WINDOW_YEARS, endYear), [endYear]);
+
   const [place, setPlace] = useState<Place | null>(null);
-  const [date] = useState(() => daysAgo(IMAGERY_LAG_DAYS));
+  const [year, setYear] = useState(endYear);
   const [aboutOpen, setAboutOpen] = useState(false);
+
+  const date = sampleDate(year);
 
   const pick = useCallback((next: Place) => {
     setPlace({
@@ -43,7 +50,10 @@ export default function App() {
     <main className="app">
       <EarthMap place={place} date={date} onPick={pick} />
       {place ? (
-        <PlaceView place={place} date={date} onBack={goHome} />
+        <>
+          <PlaceView place={place} date={date} onBack={goHome} />
+          <Core years={years} value={year} onChange={setYear} />
+        </>
       ) : (
         <GlobeScreen onPick={pick} onAbout={() => setAboutOpen(true)} />
       )}

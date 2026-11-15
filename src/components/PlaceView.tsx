@@ -1,7 +1,8 @@
 import type { Place } from "../lib/format";
 import { formatLatLon } from "../lib/format";
-import { formatDate } from "../lib/dates";
+import { formatDateRange } from "../lib/dates";
 import { IMAGERY, imageryLayerFor } from "../lib/gibs";
+import { compositeEnd } from "../lib/time";
 
 type PlaceViewProps = {
   place: Place;
@@ -10,7 +11,7 @@ type PlaceViewProps = {
 };
 
 export default function PlaceView({ place, date, onBack }: PlaceViewProps) {
-  const layer = imageryLayerFor(date) ?? IMAGERY.modisTerra;
+  const layer = imageryLayerFor(date) ?? IMAGERY.terraComposite;
   const coords = formatLatLon(place.lat, place.lon);
   // While search is unbuilt, the name is the coordinates. Do not print them twice.
   const subtitle = place.detail ?? (place.name === coords ? "" : coords);
@@ -32,11 +33,9 @@ export default function PlaceView({ place, date, onBack }: PlaceViewProps) {
       </header>
 
       <div className="date-card">
-        <p className="date-card__label">Satellite image</p>
-        <p className="date-card__value num">{formatDate(date)}</p>
-        <p className="date-card__source">
-          {layer.label} · NASA GIBS
-        </p>
+        <p className="date-card__label">Imagery period</p>
+        <p className="date-card__value num">{formatDateRange(date, compositeEnd(date))}</p>
+        <p className="date-card__source">{layer.label}</p>
       </div>
     </>
   );

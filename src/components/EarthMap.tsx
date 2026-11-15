@@ -30,7 +30,7 @@ type EarthMapProps = {
 
 const HOME_CENTER: [number, number] = [11.17, 8];
 const HOME_ZOOM = 2.05;
-const PLACE_ZOOM = 9.3;
+const PLACE_ZOOM = 8.8;
 
 setWorkerUrl(maplibreWorkerUrl);
 
@@ -215,6 +215,8 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
     if (!map || !loaded) return;
     const reduced = prefersReducedMotion();
 
+    const narrow = window.matchMedia("(max-width: 680px)").matches;
+
     if (place) {
       spinRef.current.enabled = false;
       lastPlaceRef.current = place;
@@ -227,7 +229,9 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
           zoom: PLACE_ZOOM,
           duration: 2600,
           curve: 1.6,
-          padding: { top: 72, bottom: 0, left: 0, right: 0 },
+          padding: narrow
+            ? { top: 64, bottom: 112, left: 0, right: 0 }
+            : { top: 72, bottom: 0, left: 0, right: 120 },
           essential: true,
         });
       }

@@ -34,10 +34,21 @@ export const COASTLINES = {
 } as const;
 
 /**
- * Imagery layers, best first. MODIS Terra covers the whole 10-year window;
- * the VIIRS layers start later and are fallbacks.
+ * Imagery layers, best first.
+ *
+ * The core uses the MODIS Terra 8-day surface reflectance composite: every year
+ * is covered, the composite screens out cloud, and it is available from 2000.
+ * True colour daily layers are kept for a "latest clear day" view later.
  */
 export const IMAGERY: Record<string, GibsLayer> = {
+  terraComposite: {
+    id: "MODIS_Terra_L3_SurfaceReflectance_Bands143_8Day",
+    tileMatrixSet: "GoogleMapsCompatible_Level8",
+    ext: "jpeg",
+    maxZoom: 8,
+    from: "2000-02-26",
+    label: "MODIS Terra, 8-day composite",
+  },
   modisTerra: {
     id: "MODIS_Terra_CorrectedReflectance_TrueColor",
     tileMatrixSet: "GoogleMapsCompatible_Level9",
@@ -86,13 +97,13 @@ export function datedTiles(layer: GibsLayer, isoDate: string): Array<string> {
 }
 
 /**
- * Which imagery layer can serve this date. Returns null when the date is older
- * than every true-colour record we have.
+ * Which imagery layer serves this date. The 8-day composite is complete from
+ * 2000-02-26, so it is the default; daily records are the fallback.
  */
 export function imageryLayerFor(isoDate: string): GibsLayer | null {
-  const candidates = [IMAGERY.modisTerra, IMAGERY.viirsNoaa20, IMAGERY.viirsSnpp];
-  for (const layer of candidates) {
-    if (isoDate >= layer.from) return layer;
-  }
+  if (isoDate >= IMAGERY.terraComposite.from) return IMAGERY.terraComposite;
+  if (isoDate >= IMAGERY.viirsNoaa20.from) return IMAGERY.viirsNoaa20;
+  if (isoDate >= IMAGERY.viirsSnpp.from) return IMAGERY.viirsSnpp;
+  if (isoDate >= IMAGERY.modisTerra.from) return IMAGERY.modisTerra;
   return null;
 }

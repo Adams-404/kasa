@@ -97,6 +97,26 @@ Order matters: `{layer}/default/{time}/{tilematrixset}/{z}/{y}/{x}`.
 Tested live: `MODIS_Terra_.../default/2025-11-10/GoogleMapsCompatible_Level9/9/290/430.jpg`
 returned `200 image/jpeg` (7724 bytes); the VIIRS SNPP equivalent returned 200 as well.
 
+### What we actually use for time travel (verified 2026-11-15)
+
+Daily true colour on a fixed day has two failures we hit in testing: **missing days**
+(`MODIS_Terra_CorrectedReflectance_TrueColor` has no scene for Gombe on 2016-11-05 or
+2019-11-05; GIBS returns a 1.6 kB black tile) and **cloud**.
+
+Fix, verified across 2016-2026 at Gombe: the 8-day surface reflectance composite
+
+| Layer ID | Tile matrix set | Format | Cadence |
+|---|---|---|---|
+| `MODIS_Terra_L3_SurfaceReflectance_Bands143_8Day` | `GoogleMapsCompatible_Level8` | jpeg | 8-day, grid starts 2000-02-26 |
+
+- Every sampled year had a tile (no gaps), and the composites were cloud-free.
+- Composite periods begin on `2000-02-26 + k*8 days`; snap any target date down to that
+  grid. For 5 Nov 2025 the tile date is 2025-11-05; for 2017 it is 2017-10-30.
+- Cost: 500 m resolution (Level8, ~600 m/px at the equator) instead of 250 m, and a faint
+  mosaic seam at some tile edges. Accepted: complete and comparable beats crisp and patchy.
+- Bands 1-4-3 rendered as RGB: vegetation reads green, bare soil tan. NASA calls this
+  "surface reflectance", not true colour, so we do not call it true colour either.
+
 ### Consequences for our build
 
 - **`Level9` means max native zoom 9** (~300 m/px at the equator). MapLibre must be told
@@ -106,6 +126,11 @@ returned `200 image/jpeg` (7724 bytes); the VIIRS SNPP equivalent returned 200 a
 - **Use MODIS Terra as the primary imagery layer** for 2006-2025: it covers the whole
   window, while VIIRS SNPP only starts Nov 2015 and has gaps (e.g. 2022-07-27 → 2022-08-10,
   2024-05-31 → 2024-06-04).
+- **Time travel uses the 8-day composite, not daily true colour.** Daily true colour has
+  no scene at all on some days (verified: Gombe 2016-11-05 and 2019-11-05 return a black
+  tile) and is often cloud-covered. `MODIS_Terra_L3_SurfaceReflectance_Bands143_8Day`
+  is complete for every year checked and cloud-screened, at 500 m instead of 250 m.
+  Snap the sample date to its 8-day grid (base 2000-02-26) and show the period on screen.
 - **Fallback chain** when a date has no MODIS scene: `VIIRS_NOAA20` → `VIIRS_SNPP` →
   nearest previous available MODIS date. Show the date actually displayed.
 - **Globe base layer:** `BlueMarble_ShadedRelief_Bathymetry` (dark, no date needed) at low

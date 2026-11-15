@@ -55,6 +55,16 @@ export function isValidIsoDate(value: string): boolean {
   return !Number.isNaN(d.getTime()) && toIso(d) === value;
 }
 
+/** "2025-11-05", "2025-11-12" -> "5 – 12 Nov 2025" */
+export function formatDateRange(start: string, end: string): string {
+  const [sy, sm, sd] = start.split("-").map(Number);
+  const [ey, em, ed] = end.split("-").map(Number);
+  if (!sy || !sm || !sd || !ey || !em || !ed) return `${start} – ${end}`;
+  if (sy === ey && sm === em) return `${sd} – ${ed} ${MONTHS[em - 1]} ${ey}`;
+  if (sy === ey) return `${sd} ${MONTHS[sm - 1]} – ${ed} ${MONTHS[em - 1]} ${ey}`;
+  return `${sd} ${MONTHS[sm - 1]} ${sy} – ${ed} ${MONTHS[em - 1]} ${ey}`;
+}
+
 /** True when the window is too short to lean on: under 30 years of annual points. */
 export function isShortWindow(years: number): boolean {
   return years < 30;
