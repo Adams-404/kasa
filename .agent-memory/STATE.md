@@ -16,12 +16,13 @@ IN_PROGRESS
 - Added `src/lib/demoPack.ts`, `src/lib/demo-pack.json`, and cache seeding so the three demo places serve 1986–2025 NASA POWER data offline.
 - Added `src/lib/demoPack.test.ts`; `npm test` and `npm run build` pass.
 - Closed completed GitHub issue #5 and commented on issue #8 with the demo-pack progress.
+- Committed the implementation as `aee3bd1`; the worktree is clean.
 
 ## NEXT STEP (do this first)
-Commit the demo-pack implementation and memory updates, excluding generated `tsconfig.tsbuildinfo`.
+Open `README.md` and choose a deployment target/public URL for issue #8.
 
 ## Uncommitted / Half-Finished Work
-Demo-pack implementation, test, README, and memory updates are uncommitted. `tsconfig.tsbuildinfo` is a generated local change and must not be committed.
+No uncommitted application work. Generated `tsconfig.tsbuildinfo` was restored and is clean.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -31,4 +32,4 @@ Demo-pack implementation, test, README, and memory updates are uncommitted. `tsc
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 12:46 by copilot
+2026-11-15 12:48 by copilot
