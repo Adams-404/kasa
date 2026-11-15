@@ -3,6 +3,7 @@ import EarthMap from "../components/EarthMap";
 import GlobeScreen from "../components/GlobeScreen";
 import PlaceView from "../components/PlaceView";
 import Core from "../components/Core";
+import AnalysisBar from "../components/AnalysisBar";
 import About from "../components/About";
 import { formatLatLon, type Place } from "../lib/format";
 import { lastCompleteYear, sampleDate, yearWindow } from "../lib/time";
@@ -28,6 +29,14 @@ export default function App() {
 
   const goHome = useCallback(() => setPlace(null), []);
 
+  // A chart click can only move the core to a year the core actually shows.
+  const selectYear = useCallback(
+    (next: number) => {
+      if (years.includes(next)) setYear(next);
+    },
+    [years],
+  );
+
   // Deep link for the demo and for QA: /#at=10.29,11.17
   useEffect(() => {
     const match = /^at=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/.exec(
@@ -52,6 +61,12 @@ export default function App() {
       {place ? (
         <>
           <PlaceView place={place} date={date} onBack={goHome} />
+          <AnalysisBar
+            place={place}
+            selectedYear={year}
+            coreYears={years}
+            onSelectYear={selectYear}
+          />
           <Core years={years} value={year} onChange={setYear} />
         </>
       ) : (

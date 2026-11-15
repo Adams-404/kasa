@@ -93,6 +93,13 @@ export function formatP(p: number): string {
   return `p = ${p.toFixed(2)}`;
 }
 
+/** The bare value, for a table cell that already says "p-value". */
+export function formatPValue(p: number): string {
+  if (!Number.isFinite(p)) return "n/a";
+  if (p < 0.001) return "< 0.001";
+  return p.toFixed(2);
+}
+
 function signed(magnitude: string, rising: boolean): string {
   if (Number(magnitude) === 0) return "0";
   return rising ? `+${magnitude}` : `-${magnitude}`;

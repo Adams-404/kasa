@@ -230,8 +230,8 @@ export default function EarthMap({ place, date, onPick }: EarthMapProps) {
           duration: 2600,
           curve: 1.6,
           padding: narrow
-            ? { top: 64, bottom: 112, left: 0, right: 0 }
-            : { top: 72, bottom: 0, left: 0, right: 120 },
+            ? { top: 64, bottom: Math.round(window.innerHeight * 0.5) + 104, left: 0, right: 0 }
+            : { top: 72, bottom: 312, left: 0, right: 120 },
           essential: true,
         });
       }
