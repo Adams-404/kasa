@@ -8,9 +8,10 @@ type PlaceViewProps = {
   place: Place;
   date: string;
   onBack: () => void;
+  onHistory: () => void;
 };
 
-export default function PlaceView({ place, date, onBack }: PlaceViewProps) {
+export default function PlaceView({ place, date, onBack, onHistory }: PlaceViewProps) {
   const layer = imageryLayerFor(date) ?? IMAGERY.terraComposite;
   const coords = formatLatLon(place.lat, place.lon);
   // While search is unbuilt, the name is the coordinates. Do not print them twice.
@@ -29,6 +30,11 @@ export default function PlaceView({ place, date, onBack }: PlaceViewProps) {
               {place.detail ? `${place.detail} · ${coords}` : subtitle}
             </p>
           )}
+        </div>
+        <div className="place-actions">
+          <button type="button" className="text-link" onClick={onHistory}>
+            History
+          </button>
         </div>
       </header>
 

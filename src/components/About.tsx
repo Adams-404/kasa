@@ -58,6 +58,10 @@ export default function About({ open, onClose }: AboutProps) {
             (MODIS and VIIRS corrected reflectance, Blue Marble).
           </li>
           <li>
+            The imagery product is land surface reflectance: open ocean has no imagery,
+            though the climate series still covers it.
+          </li>
+          <li>
             Climate series:{" "}
             <a href="https://power.larc.nasa.gov/" target="_blank" rel="noreferrer">
               NASA POWER

@@ -5,6 +5,7 @@ import PlaceView from "../components/PlaceView";
 import Core from "../components/Core";
 import AnalysisBar from "../components/AnalysisBar";
 import About from "../components/About";
+import HistoryPanel from "../components/HistoryPanel";
 import { formatLatLon, type Place } from "../lib/format";
 import { lastCompleteYear, sampleDate, yearWindow } from "../lib/time";
 import { reversePlace } from "../lib/api/nominatim";
@@ -18,6 +19,7 @@ export default function App() {
   const [place, setPlace] = useState<Place | null>(null);
   const [year, setYear] = useState(endYear);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
 
   const date = sampleDate(year);
 
@@ -49,6 +51,7 @@ export default function App() {
 
   const goHome = useCallback(() => {
     pickSeq.current += 1;
+    setHistoryOpen(false);
     setPlace(null);
   }, []);
 
@@ -83,7 +86,12 @@ export default function App() {
       <EarthMap place={place} date={date} onPick={pick} />
       {place ? (
         <>
-          <PlaceView place={place} date={date} onBack={goHome} />
+          <PlaceView
+            place={place}
+            date={date}
+            onBack={goHome}
+            onHistory={() => setHistoryOpen(true)}
+          />
           <AnalysisBar
             place={place}
             selectedYear={year}
@@ -94,6 +102,13 @@ export default function App() {
         </>
       ) : (
         <GlobeScreen onPick={pick} onAbout={() => setAboutOpen(true)} />
+      )}
+      {place && (
+        <HistoryPanel
+          place={place}
+          open={historyOpen}
+          onClose={() => setHistoryOpen(false)}
+        />
       )}
       <About open={aboutOpen} onClose={() => setAboutOpen(false)} />
     </main>

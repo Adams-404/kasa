@@ -23,11 +23,13 @@ No API keys, no accounts, no database. Every source is a public API.
    from globe to flat map, so it is one camera move, not a screen change.
 3. **Time travel.** A vertical *core* of year bands scrubs the imagery. Every year uses the
    same calendar day (5 November) so years are compared like for like.
-4. **Verdict.** For that point, Kasa pulls monthly temperature and rainfall from NASA
+4. **History.** A side panel with the nearest Wikipedia article, a few Wikidata facts
+   (population, region, country, founded) and links to the source.
+5. **Verdict.** For that point, Kasa pulls monthly temperature and rainfall from NASA
    POWER, removes the seasonal cycle, and runs a Mann-Kendall trend test with a Theil-Sen
    slope. The panel shows the annual anomalies, the fitted change, the p-value, and a
    plain-language sentence that never overclaims.
-5. **Honesty switch.** "Extend to 40 years" widens the statistical window and updates the
+6. **Honesty switch.** "Extend to 40 years" widens the statistical window and updates the
    caveat, because ten annual points is weak evidence either way.
 
 ## The statistics, briefly
@@ -67,8 +69,8 @@ year we checked. The cost — 500 m instead of 250 m and a faint tile seam — i
 | 2 | Satellite time travel (the core) | done |
 | 3 | POWER data, chart, significance test, verdict | done |
 | 4 | Search by name or coordinates, reverse geocoding | done |
-| 5 | History and culture panel | next |
-| 6 | Year-vs-year swipe compare | planned |
+| 5 | History and culture panel | done |
+| 6 | Year-vs-year swipe compare | next |
 | 7 | Grounded AI chat | planned |
 | 8 | GDELT news panel | planned |
 | 9 | Share card export | planned |
@@ -82,7 +84,9 @@ gotchas live in `docs/`.
 
 - A POWER point is a reanalysis grid cell, not a thermometer in the ground.
 - Ten annual points is a short window; forty is better but still one window.
-- Imagery comes from an 8-day composite at 500 m, not a photograph of one afternoon.
+- Imagery comes from an 8-day composite at 500 m, not a photograph of one afternoon. The
+  MODIS surface-reflectance product masks water, so open ocean shows no imagery (the
+  statistics still work: MERRA-2 covers the ocean).
 - The trend is a statistical description of this window. It is not attribution.
 
 ## Credits
