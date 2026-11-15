@@ -10,6 +10,7 @@
 - 2026-11-15 12:43 | agent: copilot | Added `src/lib/demoPack.test.ts`; `npm test` passed 25 tests and `npm run build` completed successfully.
 - 2026-11-15 12:46 | agent: copilot | Closed GitHub issue #5 and commented on #8; deployment, video, and submission remain outside the implemented code scope.
 - 2026-11-15 12:48 | agent: copilot | Committed offline demo-pack implementation as `aee3bd1`; verified the worktree is clean.
+- 2026-11-15 12:54 | agent: copilot | Confirmed the map uses NASA MODIS satellite tiles; kept the 8-day composite by user choice and relabeled the date card as satellite imagery.
 
 <!--
 ### Example entries

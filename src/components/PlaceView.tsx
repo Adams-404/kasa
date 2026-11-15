@@ -62,7 +62,7 @@ export default function PlaceView({
       </header>
 
       <div className="date-card">
-        <p className="date-card__label">Imagery period</p>
+        <p className="date-card__label">Satellite imagery period</p>
         <p className="date-card__value num">{formatDateRange(date, compositeEnd(date))}</p>
         <p className="date-card__source">{layer.label}</p>
 

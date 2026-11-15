@@ -17,12 +17,13 @@ IN_PROGRESS
 - Added `src/lib/demoPack.test.ts`; `npm test` and `npm run build` pass.
 - Closed completed GitHub issue #5 and commented on issue #8 with the demo-pack progress.
 - Committed the implementation as `aee3bd1`; the worktree is clean.
+- Confirmed the map already uses NASA MODIS satellite imagery; user chose to keep the reliable 8-day composite rather than switch to sharper but incomplete true-colour dates.
 
 ## NEXT STEP (do this first)
-Open `README.md` and choose a deployment target/public URL for issue #8.
+Run the focused checks for the satellite-label clarification, then commit and push it.
 
 ## Uncommitted / Half-Finished Work
-No uncommitted application work. Generated `tsconfig.tsbuildinfo` was restored and is clean.
+`src/components/PlaceView.tsx` has one uncommitted label clarification.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -32,4 +33,4 @@ No uncommitted application work. Generated `tsconfig.tsbuildinfo` was restored a
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 12:48 by copilot
+2026-11-15 12:54 by copilot
