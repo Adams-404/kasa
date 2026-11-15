@@ -23,12 +23,13 @@ IN_PROGRESS
 - Documented the OSM/OpenFreeMap detail layer and its coverage limitation in `README.md`.
 - Committed and pushed the vector overlay as `8ead10c`; the application worktree is clean.
 - Added place and street-name labels using OpenFreeMap glyphs and documented the source, zoom thresholds, attribution, and raster-tile dead end in `docs/02-data-sources.md`.
+- Committed and pushed the label/documentation work as `fd03c1e`; the worktree is clean.
 
 ## NEXT STEP (do this first)
-Run tests and a production build for the new label layers, then commit and push the documentation and code.
+Open the deployed app at a place-level zoom and verify place/street labels are visible.
 
 ## Uncommitted / Half-Finished Work
-Label-layer code and documentation are uncommitted; generated `tsconfig.tsbuildinfo` must be restored before commit.
+No uncommitted application work.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
@@ -38,4 +39,4 @@ Label-layer code and documentation are uncommitted; generated `tsconfig.tsbuildi
 Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 13:13 by copilot
+2026-11-15 13:14 by copilot
