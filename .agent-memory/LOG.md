@@ -15,6 +15,7 @@
 - 2026-11-15 13:03 | agent: copilot | Tested direct OSM raster tiles; endpoint returned an access-policy block, so the approach was logged as a dead end.
 - 2026-11-15 13:07 | agent: copilot | Replaced the blocked raster approach with OpenFreeMap vector tiles backed by OpenStreetMap; added transparent roads/buildings and raised map zoom to 16.
 - 2026-11-15 13:08 | agent: copilot | `npm test` passed 25 tests and `npm run build` passed; documented OSM/OpenFreeMap attribution and coverage limits in `README.md`.
+- 2026-11-15 13:10 | agent: copilot | Committed and pushed the OpenStreetMap-derived vector overlay as `8ead10c`; worktree is clean.
 
 <!--
 ### Example entries
