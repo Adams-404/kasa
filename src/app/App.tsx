@@ -120,6 +120,7 @@ export default function App() {
             selectedYear={year}
             coreYears={years}
             onSelectYear={selectYear}
+            imageryDate={date}
           />
           <Core years={years} value={year} onChange={setYear} />
         </>

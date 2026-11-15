@@ -4,6 +4,8 @@ import { useTrend } from "../lib/useTrend";
 import { VARIABLES, VARIABLE_ORDER, type VariableId } from "../lib/variables";
 import { formatPValue } from "../lib/stats/verdict";
 import TrendChart from "./TrendChart";
+import AskTab from "./AskTab";
+import { IMAGERY, imageryLayerFor } from "../lib/gibs";
 
 type AnalysisBarProps = {
   place: Place;
@@ -12,6 +14,8 @@ type AnalysisBarProps = {
   /** Years the core can actually show, so a chart click never sets a dead year. */
   coreYears: ReadonlyArray<number>;
   onSelectYear: (year: number) => void;
+  /** Imagery date in the core, so the assistant knows what the person is seeing. */
+  imageryDate: string;
 };
 
 const WINDOWS = [10, 40] as const;
@@ -25,9 +29,12 @@ export default function AnalysisBar({
   selectedYear,
   coreYears,
   onSelectYear,
+  imageryDate,
 }: AnalysisBarProps) {
   const [windowYears, setWindowYears] = useState<number>(WINDOWS[0]);
   const [variable, setVariable] = useState<VariableId>("T2M");
+  const [tab, setTab] = useState<"chart" | "ask">("chart");
+  const imagery = imageryLayerFor(imageryDate) ?? IMAGERY.terraComposite;
   const { state, reload } = useTrend(place, windowYears);
 
   const spec = VARIABLES[variable];
@@ -41,27 +48,46 @@ export default function AnalysisBar({
     setWindowYears((current) => (current === WINDOWS[0] ? WINDOWS[1] : WINDOWS[0]));
 
   return (
-    <section className="analysis" aria-label="Trend analysis">
+    <section
+      className={`analysis${tab === "ask" ? " analysis--ask" : ""}`}
+      aria-label="Trend analysis"
+    >
       <header className="analysis__head">
         <div className="analysis__vars">
-          <div className="tabs" role="tablist" aria-label="Climate variable">
+          <div className="tabs" role="tablist" aria-label="Place data">
             {VARIABLE_ORDER.map((id) => (
               <button
                 key={id}
                 type="button"
                 role="tab"
-                aria-selected={variable === id}
-                className={`tab${variable === id ? " is-active" : ""}`}
-                onClick={() => setVariable(id)}
+                aria-selected={tab === "chart" && variable === id}
+                className={`tab${tab === "chart" && variable === id ? " is-active" : ""}`}
+                onClick={() => {
+                  setVariable(id);
+                  setTab("chart");
+                }}
               >
                 {VARIABLES[id].label}
               </button>
             ))}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={tab === "ask"}
+              className={`tab${tab === "ask" ? " is-active" : ""}`}
+              onClick={() => setTab("ask")}
+            >
+              Ask
+            </button>
           </div>
-          <p className="analysis__definition">{spec.definition}</p>
+          <p className="analysis__definition">
+            {tab === "ask"
+              ? "Answers come from this page's data only, and say so when it runs out."
+              : spec.definition}
+          </p>
         </div>
 
-        {analysis && (
+        {tab === "chart" && analysis && (
           <p className="analysis__window num">
             <span>{analysis.startYear}–{analysis.endYear}</span>
             <span className="analysis__window-sep">·</span>
@@ -76,14 +102,24 @@ export default function AnalysisBar({
         )}
       </header>
 
-      {state.status === "loading" && (
+      {tab === "ask" && (
+        <AskTab
+          place={place}
+          imageryDate={imageryDate}
+          imageryLabel={imagery.label}
+          windowYears={windowYears}
+          analyses={state.status === "ready" ? state.analyses : {}}
+        />
+      )}
+
+      {tab === "chart" && state.status === "loading" && (
         <div className="analysis__state" role="status">
           <span className="analysis__pulse" aria-hidden="true" />
           <p>Reading NASA POWER for this point…</p>
         </div>
       )}
 
-      {state.status === "error" && (
+      {tab === "chart" && state.status === "error" && (
         <div className="analysis__state analysis__state--error" role="alert">
           <p>{state.message}</p>
           <button type="button" className="ghost-button" onClick={reload}>
@@ -92,7 +128,7 @@ export default function AnalysisBar({
         </div>
       )}
 
-      {state.status === "ready" && analysis && (
+      {tab === "chart" && state.status === "ready" && analysis && (
         <>
           <div className="analysis__body">
             <div className="analysis__chart">

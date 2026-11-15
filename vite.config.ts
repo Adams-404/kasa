@@ -1,5 +1,6 @@
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+import { handleChat } from "./server/chat";
 
 const NOMINATIM = "https://nominatim.openstreetmap.org";
 
@@ -49,8 +50,28 @@ function nominatimProxy(): Plugin {
   };
 }
 
+/**
+ * The assistant route in development.
+ *
+ * Same handler as the deployed function in `api/chat.ts`, so there is one
+ * implementation of the prompt, the validation and the provider call. Vite does
+ * not put `.env` into `process.env`, so the file values are loaded here and
+ * merged over the real environment.
+ */
+function chatRoute(): Plugin {
+  return {
+    name: "kasa-chat-route",
+    configureServer(server) {
+      const env = { ...process.env, ...loadEnv("development", process.cwd(), "") };
+      server.middlewares.use("/api/chat", (req, res) => {
+        void handleChat(req, res, env);
+      });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), nominatimProxy()],
+  plugins: [react(), nominatimProxy(), chatRoute()],
   server: { port: 5173 },
   build: {
     // MapLibre is the map engine; it is the one big chunk we accept.

@@ -27,11 +27,15 @@ No API keys, no accounts, no database. Every source is a public API.
    camera: drag it and the boundary between the years moves under your hand.
 5. **History.** A side panel with the nearest Wikipedia article, a few Wikidata facts
    (population, region, country, founded) and links to the source.
-6. **Verdict.** For that point, Kasa pulls monthly temperature and rainfall from NASA
+6. **Ask.** A third tab answers questions about the point, grounded in exactly what
+   the page already fetched: the POWER series and its test, the imagery date, and
+   the encyclopedia entry. The panel shows the answer, the sources, and the exact
+   context the model was given.
+7. **Verdict.** For that point, Kasa pulls monthly temperature and rainfall from NASA
    POWER, removes the seasonal cycle, and runs a Mann-Kendall trend test with a Theil-Sen
    slope. The panel shows the annual anomalies, the fitted change, the p-value, and a
    plain-language sentence that never overclaims.
-7. **Honesty switch.** "Extend to 40 years" widens the statistical window and updates the
+8. **Honesty switch.** "Extend to 40 years" widens the statistical window and updates the
    caveat, because ten annual points is weak evidence either way.
 
 ## The statistics, briefly
@@ -73,14 +77,30 @@ year we checked. The cost — 500 m instead of 250 m and a faint tile seam — i
 | 4 | Search by name or coordinates, reverse geocoding | done |
 | 5 | History and culture panel | done |
 | 6 | Year-vs-year swipe compare | done |
-| 7 | Grounded AI chat | next |
-| 8 | GDELT news panel | planned |
+| 7 | Grounded AI chat | done |
+| 8 | GDELT news panel | next |
 | 9 | Share card export | planned |
 | — | Demo pack, deployment, submission | planned |
 
 Work is tracked in [issues](https://github.com/Adams-404/kasa/issues). Scope, priorities
 and the science rules live in `project.md`; verified endpoint details, layer IDs and
 gotchas live in `docs/`.
+
+## The assistant
+
+`api/chat.ts` (production) and the Vite middleware (development) run the same handler,
+`server/chat.ts`. The browser posts `{ question, context }`, where `context` is text it
+built from data already on the page; the route validates the size, adds the grounding
+rules from `server/prompt.ts`, and calls an OpenAI-compatible chat-completions endpoint.
+The key stays in the environment:
+
+```bash
+cp .env.example .env    # LLM_BASE_URL, LLM_API_KEY, LLM_MODEL
+```
+
+No key, no assistant: `GET /api/chat` reports `configured: false` and the tab says so
+instead of failing at the first question. The model never sees a request it can't ground
+and is instructed to say "I don't have that for this place" rather than guess.
 
 ## Limitations we state in the product
 
