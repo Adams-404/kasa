@@ -1,6 +1,7 @@
 .app {
   position: fixed;
   inset: 0;
+  height: 100dvh;
   overflow: hidden;
   --analysis-h: clamp(272px, 37vh, 336px);
 }
@@ -211,6 +212,17 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.15;
+}
+
+.place-title {
+  min-width: 0;
+}
+
+.place-title__name,
+.place-title__coords {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .place-title__coords {
@@ -1287,6 +1299,17 @@
   margin-bottom: var(--sp-4);
 }
 
+.about__brand {
+  color: var(--ash);
+  margin-bottom: var(--sp-4);
+}
+
+.about__brand a {
+  color: var(--chalk);
+  text-decoration-color: rgba(79, 163, 165, 0.7);
+  text-underline-offset: 3px;
+}
+
 .about__sub {
   font-size: var(--t-13);
   font-weight: 500;
@@ -1480,6 +1503,20 @@
     right: 0;
   }
 
+  .topbar--place .back-link {
+    flex: none;
+    padding-right: var(--sp-2);
+  }
+
+  .topbar--place .place-title {
+    flex: 1;
+  }
+
+  .topbar--place .place-actions {
+    flex: none;
+    gap: 0;
+  }
+
   .wordmark__name {
     font-size: var(--t-18);
   }
@@ -1584,6 +1621,17 @@
     flex-direction: column;
     gap: var(--sp-1);
     flex: none;
+  }
+
+  .tabs {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .analysis__definition {

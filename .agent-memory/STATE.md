@@ -5,12 +5,12 @@
 > Update this file after every meaningful step. Never in batches. Never "at the end".
 
 ## Current Task
-Resume the project after the OpenCode handoff and implement the next unfinished demo-readiness work.
+Add `runtime.earth` branding to About and improve Kasa's mobile responsiveness, then deploy the verified changes.
 
 ## Status
 IN_PROGRESS
 
-- Repository reconciled: `main` is clean at commit `724b4e5`, with phases 1-7 implemented.
+- Repository reconciled: `main` is clean at commit `5a44fd2`, with the current app and presentation deck pushed.
 - No prior OpenCode session or local handoff existed; GitHub issues show #8 is the next unfinished delivery item.
 - Bootstrapped `.agent-memory/` and cross-agent pointer files.
 - Added `src/lib/demoPack.ts`, `src/lib/demo-pack.json`, and cache seeding so the three demo places serve 1986–2025 NASA POWER data offline.
@@ -31,19 +31,25 @@ IN_PROGRESS
 - `npm test` passed 25 tests and `npm run build` passed for the redesign.
 - Lowered street-name labels to zoom 9 so they appear during the normal place view instead of requiring a deeper manual zoom.
 - Typecheck passed; committed and pushed the adjustment as `6526925`; the worktree is clean.
+- Confirmed Vercel CLI 59.1.4 is authenticated as `adamalee01`; the linked Vercel project is `kasa`, currently serving `https://kasa-mu-seven.vercel.app`.
+- Added `runtime.earth` to the Vercel `kasa` project. Vercel reports the domain is not verified because Porkbun still serves its parking A records; the required manual DNS change is `A @ 76.76.21.21` (or switch nameservers to `ns1.vercel-dns.com` and `ns2.vercel-dns.com`).
+- User replaced the Porkbun apex ALIAS with `A @ 76.76.21.21`; Vercel now reports the project as verified and HTTP serves the Kasa app. HTTPS certificate provisioning is still settling, and Vercel recommends its newer dual A records (`216.198.79.1` and `64.29.17.1`) for the final DNS configuration.
+- Added a `runtime.earth` link and brand statement to `src/components/About.tsx`.
+- Improved narrow layouts in `src/styles/app.css`: dynamic viewport height, ellipsis-safe place headers, horizontally scrollable analysis tabs, and mobile-safe About branding styles.
+- `npm test` passes all 25 tests; `npm run build` completes successfully.
 
 ## NEXT STEP (do this first)
-Restore generated build metadata, commit and push the redesigned home screen, then redeploy Vercel.
+Commit and push the About/mobile changes, then deploy them to the linked Vercel production project.
 
 ## Uncommitted / Half-Finished Work
-Home-screen redesign and memory updates are uncommitted; `tsconfig.tsbuildinfo` is generated noise and must be restored before commit.
+About/mobile changes are uncommitted; deployment is ready after commit.
 
 ## Recovery Plan (only if a risky op is running)
 <!-- Before any long/risky operation, write here what is about to happen and
      how to undo it. Delete this section when the operation completes cleanly. -->
 
 ## Blockers
-Deployment target/public URL, demo video, and Space Apps submission remain unresolved under issue #8.
+Porkbun DNS changes may require manual action by the user. Demo video and Space Apps submission remain unresolved under issue #8.
 
 ## Last Updated
-2026-11-15 14:27 by copilot
+2026-11-16 06:45 by copilot

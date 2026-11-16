@@ -43,6 +43,14 @@ export default function About({ open, onClose }: AboutProps) {
           statistical test of whether that change is real.
         </p>
 
+        <p className="about__brand">
+          Kasa is the Earth system explorer at{" "}
+          <a href="https://runtime.earth" target="_blank" rel="noreferrer">
+            runtime.earth
+          </a>
+          .
+        </p>
+
         <p>
           Built for the NASA International Space Apps Challenge 2026, for the challenge
           <em> Be An Earth System Trend Detective</em>.

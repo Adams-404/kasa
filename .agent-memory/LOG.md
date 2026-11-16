@@ -24,6 +24,10 @@
 - 2026-11-15 14:15 | agent: copilot | Added Production env var names `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL` in Vercel, redeployed, and verified `/api/chat` reports configured.
 - 2026-11-15 14:24 | agent: copilot | Redesigned `GlobeScreen` with a glass field-station panel, stronger hero hierarchy, source cues, demo chips, and a vignette overlay.
 - 2026-11-15 14:27 | agent: copilot | `npm test` passed 25 tests and `npm run build` passed for the visual redesign.
+- 2026-11-16 06:28 | agent: copilot | Confirmed clean `main` at `5a44fd2`; Vercel CLI 59.1.4 is logged in as `adamalee01` and the linked `kasa` project is live at `https://kasa-mu-seven.vercel.app`.
+- 2026-11-16 06:31 | agent: copilot | Added `runtime.earth` to Vercel project `kasa`; verification shows Porkbun parking A records remain and requires `A @ 76.76.21.21` or Vercel nameservers.
+- 2026-11-16 06:34 | agent: copilot | Verified Porkbun DNS now resolves `runtime.earth` to `76.76.21.21`; Vercel marks the project verified and HTTP returns the Kasa app, while HTTPS certificate provisioning is still pending.
+- 2026-11-16 06:45 | agent: copilot | Added `runtime.earth` branding to `src/components/About.tsx`; improved mobile viewport, place-header overflow, analysis-tab scrolling, and About styling in `src/styles/app.css`; `npm test` passed 25 tests and `npm run build` passed.
 
 <!--
 ### Example entries
